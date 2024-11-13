@@ -60,4 +60,15 @@ class Usuario {
     setActive() {
         this.#active = !this.#active
     }
+
+    getAllPropierties() {
+        return {
+            id: this.#id,
+            name: this.#name,
+            lastname: this.#lastname,
+            email: this.#email,
+            rol: this.#rol,
+            active: this.#active
+        }
+    }
 }

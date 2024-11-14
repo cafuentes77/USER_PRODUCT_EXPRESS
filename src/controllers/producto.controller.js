@@ -17,5 +17,23 @@ export const crearNuevoProducto = async(req, res) => {
             error
         })
     }
+}
 
+export const obtenerTodosLosProductos = async (req, res) => {
+    try {
+        const data = await Producto.encontarTodos()
+        if(!data)throw new Error('No existen los datos')
+
+        res.status(200).json({
+            message: 'Productos encontrados!',
+            status: 200,
+            data
+        })
+    }catch (error) {
+        res.status(500).json({
+            message: 'No pudimos encontrar los productos',
+            status: 500,
+            data
+    })
+}
 }

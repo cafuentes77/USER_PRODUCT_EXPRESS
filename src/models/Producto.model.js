@@ -84,4 +84,12 @@ export class Producto {
         }
     }
 
+    static async encontrarTodos() {
+        try {
+            const productos = await getAllData('productos.json')
+            return productos
+        }catch (error){
+            throw new Error('Error al obtener los datos de los productos' )
+        }
+    }
 }

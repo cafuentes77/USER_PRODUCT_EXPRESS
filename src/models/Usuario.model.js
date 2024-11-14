@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import { createDataFile } from '../utils/fileUtils.js';
+import { createDataFile, getAllData } from '../utils/fileUtils.js';
 
 export class Usuario {
     #id
@@ -84,6 +84,15 @@ export class Usuario {
             return usuarioObjet
         } catch (error) {
             throw new Error(`Fallo al crear un nuevo usuario: ${error}`)
+        }
+    }
+
+    static async encontarTodos() {
+        try {
+            const usuarios = await getAllData('usuarios.json')
+            return usuarios
+        }catch (error){
+            throw new Error('Error al obtener los usuarios')
         }
     }
 }

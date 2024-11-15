@@ -56,3 +56,26 @@ export const obtenerUsuarioPorId = async (req, res) => {
         })
     }
 }
+
+export const actualizarUsuario = async (req, res) => {
+    try {
+        const { id } = req.params
+        const dataUsuario = req.body
+
+        const actualizarUsuario = await Usuario.actualizar(id, dataUsuario)
+
+        res.status(201).json({
+            message: 'usuario encontrado',
+            status: 201,
+            oldata: actualizarUsuario,
+            newData: dataUsuario
+        })
+
+    }catch (error) {
+        res.status(500).json({
+            message: 'Error al actualizar el usuario',
+            status: 500,
+            error
+                })
+    }
+}

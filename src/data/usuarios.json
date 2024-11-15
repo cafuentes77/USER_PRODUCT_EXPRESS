@@ -14,5 +14,13 @@
         "email": "ingersonxxxxxx@gmail.com",
         "rol": "Jefe",
         "active": true
+    },
+    {
+        "name": "King",
+        "lastname": "Crawl",
+        "email": "kingcrawlxxxxxx@gmail.com",
+        "rol": "scrum master",
+        "id": "5b518c0c-f35d-4c0a-8252-06713bb6aa7f",
+        "active": true
     }
 ]

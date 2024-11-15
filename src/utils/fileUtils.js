@@ -31,3 +31,26 @@ export const getDataById = async (id, pathData) => {
         throw new Error('no pudimos acceder a los datos por el Id')
     }
 }
+
+export const updateData = async (id, newData, pathData) => {
+    try {
+        const data = await readFile(pathData)
+        const indexdata = data.findIndex(dataFound => dataFound.id === id)
+
+        if(indexdata === -1) throw new Error('no pudimos encontrar el dato que buscas')
+
+            //cortesia:Devolaver el dato anterior para comparar
+            const oldData = {...data[indexdata]}
+
+        data[indexdata] = { ...newData, id, active: true}
+        await createFile(data, pathData)
+        
+        //Cortesia:
+        return oldData
+
+
+    }catch (error) {
+        throw new Error('no pudimos actualizar los datos')
+
+    }
+}

@@ -21,7 +21,7 @@ export const crearNuevoUsuario = async (req, res) => {
 
 export const obtenerTodosLosUsuarios = async (req, res) => {
     try {
-        const data = await Usuario.encontarTodos()
+        const data = await Usuario.encontrarTodos()
         if(!data)throw new Error('No existen los datos')
 
         res.status(200).json({
@@ -36,4 +36,23 @@ export const obtenerTodosLosUsuarios = async (req, res) => {
             data
     })
 }
+}
+
+export const obtenerUsuarioPorId = async (req, res) => {
+    try {
+        const {id} = req.params.id
+        const data = await Usuario.encontrarPorId(id);
+
+        res.status(200).json({
+            message: 'usuario encontrado',
+            status: 200,
+            data
+        })
+    }catch (error) {
+        res.status(500).json({
+            message: 'Error al obtener el usuario',
+            status: 500,
+            data
+        })
+    }
 }

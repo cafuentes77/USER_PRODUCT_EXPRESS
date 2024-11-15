@@ -8,7 +8,7 @@ export const crearNuevoProducto = async(req, res) => {
         res.status(201).json({
             message: 'Producto creado con éxito',
             status: 201,
-            producto
+            data: producto
         })
     } catch (error) {
         res.status(500).json({
@@ -27,13 +27,34 @@ export const obtenerTodosLosProductos = async (req, res) => {
         res.status(200).json({
             message: 'Productos encontrados!',
             status: 200,
-            data
+            data: producto
         })
     }catch (error) {
         res.status(500).json({
             message: 'No pudimos encontrar los productos',
             status: 500,
-            data
+            error
     })
 }
+}
+
+export const obtenerProductoPorId = async(req, res) => {
+    try {
+        const { id } = req.params;
+        const data = await Producto.encontrarPorId(id);
+
+        if(!data) throw new Error('La data se encuentra vacía')
+
+        res.status(200).json({
+            message: 'Producto encontrado',
+            status: 200,
+            data
+        })
+    } catch (error) {
+        res.status(500).json({
+          message: "Error al obtener el producto",
+          status: 500,
+          error,
+        });
+    }
 }

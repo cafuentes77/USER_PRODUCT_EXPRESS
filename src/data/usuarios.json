@@ -1,1 +1,18 @@
-{}
+[
+    {
+        "id": "f63ce9d9-15bb-4976-a6a2-8caed47557e3",
+        "name": "Carles",
+        "lastname": "Fonts",
+        "email": "cfuentesmedinarob@gmail.com",
+        "rol": "web on",
+        "active": true
+    },
+    {
+        "id": "81d4e09e-f79d-4bae-a443-d25fcb971730",
+        "name": "Felipe",
+        "lastname": "Ingerson",
+        "email": "ingersonxxxxxx@gmail.com",
+        "rol": "Jefe",
+        "active": true
+    }
+]

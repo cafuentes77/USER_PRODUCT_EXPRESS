@@ -21,3 +21,13 @@ export const getAllData = async(pathData) => {
     throw new Error('no pudimos acceder a los datos')
     }
 }
+
+export const getDataById = async (id, pathData) => {
+    try {
+        const data = await readFile(pathData)
+        const datafound = data.find(datafound => datafound.id === id)
+        return datafound
+    }catch (error) {
+        throw new Error('no pudimos acceder a los datos por el Id')
+    }
+}

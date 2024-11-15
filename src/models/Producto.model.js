@@ -75,7 +75,7 @@ export class Producto {
             const product = new Producto(name, description, price, stock);
             const productObject = product.getAllProperties();
 
-            await createDataFile(productObject, 'producto.json');
+            await createDataFile(productObject, 'productos.json');
 
             return productObject;
         } catch (error) {
@@ -88,8 +88,17 @@ export class Producto {
         try {
             const productos = await getAllData('productos.json')
             return productos
-        }catch (error){
-            throw new Error('Error al obtener los datos de los productos' )
+        } catch (error) {
+            throw new Error("Error al obtener los datos de los productos");
+        }
+    }
+
+    static async encontrarPorId(id) {
+        try {
+            const producto = await getDataById(id, 'productos.json');
+            return producto
+        } catch (error) {
+            throw new Error("Error al obtener los datos del producto");
         }
     }
 }

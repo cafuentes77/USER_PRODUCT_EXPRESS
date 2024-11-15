@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import { createDataFile, getAllData } from '../utils/fileUtils.js';
+import { createDataFile, getAllData, getDataById } from '../utils/fileUtils.js';
 
 export class Usuario {
     #id
@@ -19,43 +19,43 @@ export class Usuario {
     }
 
     get id() {
-        return this.#id;
+        return this.#id
     }
 
     get nameComplete() {
-        return `${this.#name} ${this.#lastname}`;
+        return `${this.#name} ${this.#lastname}`
     }
 
     get name() {
-        return this.#name;
+        return this.#name
     }
 
     get lastname() {
-        return this.#lastname;
+        return this.#lastname
     }
 
     get email() {
-        return this.#email;
+        return this.#email
     }
 
     get rol() {
-        return this.#rol;
+        return this.#rol
     }
 
     get active() {
-        return this.#active;
+        return this.#active
     }
 
     setname(newName) {
-        this.#name = newName;
+        this.#name = newName
     }
 
     setLastname(newLastname) {
-        this.#lastname = newLastname;
+        this.#lastname = newLastname
     }
 
     setEmail(newEmail) {
-        this.#email = newEmail;
+        this.#email = newEmail
     }
 
     setActive() {
@@ -79,20 +79,29 @@ export class Usuario {
             const usuario = new Usuario(name, lastname, email, rol)
             const usuarioObjet = usuario.getAllPropierties()
 
-            await createDataFile(usuario, 'usuarios.json')
+            await createDataFile(usuarioObjet, 'usuarios.json')
 
             return usuarioObjet
         } catch (error) {
-            throw new Error(`Fallo al crear un nuevo usuario: ${error}`)
+            throw new Error(`Fallo al crear un nuevo usuario, ERROR: ${error}`)
         }
     }
 
-    static async encontarTodos() {
+    static async encontrarTodos() {
         try {
             const usuarios = await getAllData('usuarios.json')
             return usuarios
-        }catch (error){
-            throw new Error('Error al obtener los usuarios')
+        } catch (error) {
+            throw new Error('Error al obtener los datos del usuario')
+        }
+    }
+
+    static async encontrarPorId(id) {
+        try {
+            const usuario = await getDataById(id, 'usuarios.json')
+            return usuario
+        } catch (error) {
+            throw new Error("Error al obtener los datos del usuario");
         }
     }
 }

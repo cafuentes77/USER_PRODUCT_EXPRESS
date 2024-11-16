@@ -15,26 +15,26 @@ export const crearNuevoProducto = async(req, res) => {
             message: 'Error al crear el producto',
             status: 500,
             error
-        })
+        });
     }
 }
 
 export const obtenerTodosLosProductos = async (req, res) => {
     try {
-        const data = await Producto.encontarTodos()
+        const data = await Producto.encontrarTodos()
         if(!data)throw new Error('No existen los datos')
 
         res.status(200).json({
             message: 'Productos encontrados!',
             status: 200,
-            data: producto
+            data
         })
     }catch (error) {
         res.status(500).json({
             message: 'No pudimos encontrar los productos',
             status: 500,
             error
-    })
+    });
 }
 }
 
@@ -53,6 +53,28 @@ export const obtenerProductoPorId = async(req, res) => {
     } catch (error) {
         res.status(500).json({
           message: "Error al obtener el producto",
+          status: 500,
+          error,
+        });
+    }
+}
+
+export const actualizarProducto = async(req, res) => {
+    try {
+        const { id } = req.params
+        const data = req.body
+
+        const actualizarProducto = await Producto.actualizar(id, data)
+
+        res.status(201).json({
+            message: 'Producto Actualizado',
+            status: 201,
+            oldData: actualizarProducto,
+            newData: data
+        })
+    } catch (error) {
+        res.status(500).json({
+          message: "Error al actualizar el producto",
           status: 500,
           error,
         });

@@ -22,5 +22,13 @@
         "rol": "scrum master",
         "id": "5b518c0c-f35d-4c0a-8252-06713bb6aa7f",
         "active": true
+    },
+    {
+        "id": "e31d5d36-3807-48a2-8b83-6d0a07ae87c3",
+        "name": "Patricio",
+        "lastname": "Hulk",
+        "email": "phulkxxxxxx@gmail.com",
+        "rol": "CRUD Ingenier",
+        "active": true
     }
 ]

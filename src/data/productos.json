@@ -8,12 +8,12 @@
         "visible": true
     },
     {
-        "id": "fd2aed17-a82c-4000-91ec-2b18ebea5b16",
         "name": "xiaomi",
         "description": "Telefono movil",
-        "price": "500000",
-        "stock": 8,
-        "visible": true
+        "price": "250000",
+        "stock": 3,
+        "id": "fd2aed17-a82c-4000-91ec-2b18ebea5b16",
+        "active": true
     },
     {
         "id": "deedcea4-cc40-4752-a90b-6f5dd1bf7d1e",

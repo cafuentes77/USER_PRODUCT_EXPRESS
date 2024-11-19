@@ -93,3 +93,34 @@ export const softDeleteData = async(id, pathData, Model) => {
         console.error("No pudimos actualizar la data");
     }
 }
+
+export const getAllActiveData = async(pathData) => {
+    try {
+        const data = await readFile(pathData);
+
+        const activaData = data.filter(dataFound => dataFound.active);
+
+        const dataToRender = activaData.map(({active, ...resto}) => resto)
+
+        return dataToRender
+
+    }catch (error) {
+        console.error("No pudimos actualizar la data");
+    }
+}
+
+export const getActiveDataById = async(id, pathData) => {
+    try {
+        const data = await readFile(pathData);
+
+        const dataFound = data.find(dataFound => dataFound.id === id && dataFound.active)
+
+        if(!dataFound) throw new Error('No pudimos encontrar el dato');
+
+        const {active, ...resto} = dataFound;
+        return resto
+
+    }catch (error) {
+        console.error("No pudimos actualizar la data");
+    }
+}

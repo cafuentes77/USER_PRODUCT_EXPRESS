@@ -1,0 +1,18 @@
+[
+    {
+        "id": "bca3f69d-162a-4097-8ff7-ffac1ddcf0ea",
+        "name": "xiaomi",
+        "description": "Telefono movil",
+        "price": "250000",
+        "stock": 3,
+        "visible": true
+    },
+    {
+        "id": "b0d32ab5-ff5a-4cde-af86-f57fa03cba82",
+        "name": "NEC",
+        "description": "Central Telefonica",
+        "price": "2000000",
+        "stock": 5,
+        "visible": true
+    }
+]

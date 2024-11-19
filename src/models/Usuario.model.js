@@ -1,5 +1,13 @@
 import { v4 as uuidv4 } from 'uuid';
-import { createDataFile, getAllData, getDataById, updateData, permaDeleteData, softDeleteData } from '../utils/fileUtils.js';
+import { 
+    createDataFile, 
+    getAllData, 
+    getDataById, 
+    updateData, 
+    permaDeleteData, 
+    softDeleteData, 
+    getAllActiveData, 
+    } from '../utils/fileUtils.js';
 
 export class Usuario {
     #id
@@ -155,4 +163,21 @@ export class Usuario {
             throw new Error(`Fallo al borrar el usuario, ERROR: ${error}`);
         }
     }
+
+    static obtenerUsuariosActivos() {
+        try {
+            const usuarios = getAllActiveData('usuarios.json')
+        }catch (error){
+            throw new Error('Error al obtener los datos del usuarios')
+        }
+    }
+
+    static obtenerUsuariosActivosPorId() {
+        try {
+            const usuarios = getActiveDatabyId(id,'usuarios.json')
+            return usuarios
+        }catch (error){
+            throw new Error('Error al obtener los datos del usuarios')
+        }
+        }
 }

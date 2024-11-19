@@ -97,3 +97,39 @@ export const eliminarPermanenteUsuario = async(req, res) => {
         })
     }
 }
+
+export const obtenerTodosLosUsuriosActivos = async (req, res) => {
+    try {
+        const usuarios = await Usuario.obtenerUsuariosActivos();
+        res.status(200).json({
+            message: 'usuarios encontrados',
+            status: 200,
+            usuarios
+        })
+    }catch (error) {
+        res.status(500).json({
+            message: 'Error al obtener los usuarios',
+            status: 500,
+            error
+        })
+    }
+}
+
+export const obtenerUsuariosActivosPorId = async (req, res) => {
+    try {
+        const { id } = req.params   
+        const usuario = await Usuario.obtenerUsuarioPorId(id)
+        res.status(200).json({
+            message: 'usuario encontrado con exito',
+            status: 200,
+            data:usuario
+        })
+
+    }catch (error) {
+        res.status(500).json({
+            message: 'Error al obtener el usuario',
+            status: 500,
+            error,
+        })
+    }
+}

@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import { createDataFile, getAllData, getDataById, updateData } from '../utils/fileUtils.js';
+import { createDataFile, getAllData, getDataById, updateData, permaDeleteData, softDeleteData } from '../utils/fileUtils.js';
 
 export class Usuario {
     #id
@@ -46,6 +46,10 @@ export class Usuario {
         return this.#active
     }
 
+    setId (newId) {
+        this.#id = newId
+    }
+
     setname(newName) {
         this.#name = newName
     }
@@ -58,8 +62,16 @@ export class Usuario {
         this.#email = newEmail
     }
 
-    setActive() {
+    /*setActive() {
         this.#active = !this.#active
+    }*/
+
+    desactive(){
+        this.#active = false
+    }
+
+    active(){
+        this.#active = true
     }
 
     getAllPropierties() {
@@ -70,6 +82,19 @@ export class Usuario {
             email: this.#email,
             rol: this.#rol,
             active: this.#active
+        }
+    }
+
+    static formatearInstacia(objeto){
+        try {
+            const {id, name, lastname, email, rol } = objeto;
+
+            const nuevaInstancia = new Usuario(name, lastname, email, rol);
+            nuevaInstancia.setId(id)
+
+            return nuevaInstancia
+        }catch (error) {
+            console.error('problemas al formatear la instacia de Usuario')
         }
     }
 
@@ -111,6 +136,23 @@ export class Usuario {
             return actualizrUsuario
         }catch (error){
             throw new Error(`Fallo al actualizar el usuario, ERROR: ${err}`);
+        }
+    }
+
+    static async borrarForEvaaa(id) {
+        try {
+            const usuarioBorrar = await permaDeleteData(id, 'usuarios.json');
+            return usuarioBorrar
+        }catch (error){
+            throw new Error(`Fallo al borrar permaentemente el usuario, ERROR: ${error}`)
+        }
+    }
+
+    static async delete(id) {
+        try {
+            await softDeleteData(id, 'usuarios.json', Usuario)
+        }catch (error){
+            throw new Error(`Fallo al borrar el usuario, ERROR: ${error}`);
         }
     }
 }

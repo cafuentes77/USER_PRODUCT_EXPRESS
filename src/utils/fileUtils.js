@@ -54,3 +54,42 @@ export const updateData = async (id, newData, pathData) => {
 
     }
 }
+
+export const permaDeleteData = async(id, pathData) => {
+    try {
+        const data = await readFile(pathData);
+
+        const indexData = data.findIndex( dataFound => dataFound.id === id );
+
+        if(indexData === -1) throw new Error(`No pudimos encontrar la data`);
+
+        const dataDelete = data[indexData]
+        data.splice(indexData, 1)
+
+        await createFile(data, pathData )
+
+        return dataDelete
+    } catch (error) {
+        console.error("No pudimos actualizar la data");
+    }
+}
+
+
+export const softDeleteData = async(id, pathData, Model) => {
+    try {
+        const data = await readFile(pathData);
+
+        const indexData = data.findIndex(dataFound => dataFound.id === id)
+        if (indexData === -1) throw new Error(`No pudimos encontrar la data`);
+
+        const newInstance = Model.formatearInstancea(data[indexData]);
+        
+        newInstance.desactive();
+        
+        data[indexData] = newInstance.getAllProperties()
+
+        await createFile(data, pathData)        
+    } catch (error) {
+        console.error("No pudimos actualizar la data");
+    }
+}

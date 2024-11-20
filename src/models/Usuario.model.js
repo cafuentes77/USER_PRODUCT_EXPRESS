@@ -19,11 +19,11 @@ export class Usuario {
 
     constructor(name, lastname, email, rol) {
         this.#id = uuidv4()
-        this.#name = name;
-        this.#lastname = lastname;
-        this.#email = email;
-        this.#rol = rol;
-        this.#active = true;
+        this.#name = Validate.userName(name, 'Nombre'); 
+        this.#lastname = Validate.userName(lastname, 'Apellido');
+        this.#email = Validate.email(email);
+        this.#rol = Validate.rol(rol, VALID_ROLES);
+        this.#active = true
     }
 
     get id() {
@@ -58,17 +58,44 @@ export class Usuario {
         this.#id = newId
     }
 
-    setname(newName) {
-        this.#name = newName
-    }
-
-    setLastname(newLastname) {
-        this.#lastname = newLastname
-    }
-
-    setEmail(newEmail) {
-        this.#email = newEmail
-    }
+    setName(newName) {
+        try {
+          Validate.userName(newName, 'Nombre');
+          this.#name = newName
+          
+        } catch (error) {
+          console.error(error)
+        }
+      }
+    
+      setLastname(newLastname) {
+        try {
+          Validate.userName(newLastname, 'Apellido');
+          this.#lastname = newLastname
+          
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    
+      setEmail(newEmail) {
+        try {
+          Validate.email(email)
+          this.#email = newEmail
+          
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    
+      setRol(newRol) {
+        try {
+          Validate.rol(newRol, VALID_ROLES)
+          this.#rol = newRol
+        } catch (error) {
+          console.error(error);
+        }
+      }
 
     /*setActive() {
         this.#active = !this.#active

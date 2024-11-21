@@ -1,7 +1,6 @@
-import { config } from "nodemon";
 import AppError from "./AppError.js";
 
-export class ValidationError extends appError {
+export class ValidationError extends AppError {
     constructor (message, details) {
         super(message || 'Error de Validación', 400, details);
     }

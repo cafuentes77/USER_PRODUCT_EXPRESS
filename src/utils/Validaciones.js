@@ -1,3 +1,5 @@
+import { ValidationError } from "../error/typesError.js";
+
 export class Validate {
 
     //JSDocs
@@ -8,11 +10,11 @@ export class Validate {
    * @return {string} - el texto validado que se retorna
    */
 
-    static userName(userName, fieldName, regex) {
+    static userName(userName, fieldName) {
         const nameRegex = /^[a-zA-ZáéíóúÁÉÓÍÚñÑüÜ\s]+$/;
-        if (!regex.test(userName)) 
-            throw new Error(`${fieldName} debe contener solo letras`)
-        return (userName)
+        if (!nameRegex.test(userName)) 
+            throw new ValidationError(`${fieldName} debe contener solo letras`, `Error al validar el regex ${nameRegex}`);
+        return userName;
     }
 
      /**
@@ -25,25 +27,27 @@ export class Validate {
      static productText(text, fieldName) {
         const productText = /^[a-zA-Z0-9]{2,255}$/;
         if (!productText.test(text))
-          throw new Error(`${fieldName} contiene valores invalidos`);
+          throw new ValidationError(`${fieldName} contiene valores invalidos`);
         return productText;
       }
 
     static email(email) {
         const emailRegex = /[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,5}/;
         if(!emailRegex.test(email)) 
-            throw new Error(`Correo electronico no válido`)
+            throw new ValidationError(
+          `Correo electronico no válido`,`Error al validar el regex ${emailRegex}`
+          );
         return email;
     }
 
     static rol(rol, validRoles) {
-        if(!validRoles.includes(rol)) throw new Error(`Rol no válido`)
-        return rol
+      if (!validRoles.includes(rol)) throw new ValidationError(`Rol no válido`, `Rol debe ser alguno de los siguientes ${validRoles}`);
+      return rol;
     }
 
     static amount(value, fieldName) {
         if (typeof value !== "number" || value < 0)
-          throw new Error(`${fieldName} debe ser un número mayor que 0`);
+          throw new ValidationError(`${fieldName} debe ser un número mayor que 0`);
         return value;
       }
 }

@@ -1,6 +1,7 @@
+import { NotFoundError } from "../error/typesError.js";
 import { Producto } from "../models/Producto.model.js";
 
-export const crearNuevoProducto = async(req, res) => {
+export const crearNuevoProducto = async (req, res) => {
     try {
         const data = req.body;
         const producto = await Producto.crear(data)
@@ -22,28 +23,28 @@ export const crearNuevoProducto = async(req, res) => {
 export const obtenerTodosLosProductos = async (req, res) => {
     try {
         const data = await Producto.encontrarTodos()
-        if(!data)throw new Error('No existen los datos')
+        if (!data) throw new NotFoundError('No existen los datos', `No se encontraron los datos solictadoes en la ruta correspondiente`)
 
         res.status(200).json({
             message: 'Productos encontrados!',
             status: 200,
             data
         })
-    }catch (error) {
+    } catch (error) {
         res.status(500).json({
             message: 'No pudimos encontrar los productos',
             status: 500,
             error
-    });
-}
+        });
+    }
 }
 
-export const obtenerProductoPorId = async(req, res) => {
+export const obtenerProductoPorId = async (req, res) => {
     try {
         const { id } = req.params;
         const data = await Producto.encontrarPorId(id);
 
-        if(!data) throw new Error('La data se encuentra vacía')
+        if (!data) throw new NotFoundError("La data se encuentra vacía", `No encontramos el id: ${id}`);
 
         res.status(200).json({
             message: 'Producto encontrado',
@@ -52,16 +53,16 @@ export const obtenerProductoPorId = async(req, res) => {
         })
     } catch (error) {
         res.status(500).json({
-          message: "Error al obtener el producto",
-          status: 500,
-          error,
+            message: "Error al obtener el producto",
+            status: 500,
+            error,
         });
     }
 }
 
-export const actualizarProducto = async(req, res) => {
+export const actualizarProducto = async (req, res) => {
     try {
-        const { id } = req.params
+        const { id } = req.params;
         const data = req.body
 
         const actualizarProducto = await Producto.actualizar(id, data)
@@ -74,14 +75,14 @@ export const actualizarProducto = async(req, res) => {
         })
     } catch (error) {
         res.status(500).json({
-          message: "Error al actualizar el producto",
-          status: 500,
-          error,
+            message: "Error al actualizar el producto",
+            status: 500,
+            error,
         });
     }
 }
 
-export const eliminarPermanenteProducto = async(req, res) => {
+export const eliminarPermanenteProducto = async (req, res) => {
     try {
         const { id } = req.params;
 
@@ -94,9 +95,9 @@ export const eliminarPermanenteProducto = async(req, res) => {
         })
     } catch (error) {
         res.status(500).json({
-          message: "Error al Eliminar el producto",
-          status: 500,
-          error,
+            message: "Error al Eliminar el producto",
+            status: 500,
+            error,
         });
     }
 }

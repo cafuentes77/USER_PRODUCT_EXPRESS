@@ -1,3 +1,4 @@
+import { NotFoundError, YeisonError } from "../error/typesError.js";
 import { createFile, readFile } from "../services/fileService.js"
 
 export const createDataFile = async (data, dataPath) => {
@@ -9,7 +10,7 @@ export const createDataFile = async (data, dataPath) => {
 
     await createFile(dataJson, dataPath)
     } catch (error) {
-        throw new Error(`Error al gestionar la creacion del archivo con la data. ERROR: ${error}`)
+        throw new YeisonError(`Error al gestionar la creación del archivo con la data`, error)
     }
 }
 
@@ -18,7 +19,7 @@ export const getAllData = async(pathData) => {
         const data = await readFile(pathData)
         return data
     } catch (error) {
-    throw new Error('no pudimos acceder a los datos')
+    throw new NotFoundError('no pudimos acceder a los datos', error)
     }
 }
 
@@ -26,9 +27,10 @@ export const getDataById = async (id, pathData) => {
     try {
         const data = await readFile(pathData)
         const datafound = data.find(datafound => datafound.id === id)
+
         return datafound
     }catch (error) {
-        throw new Error('no pudimos acceder a los datos por el Id')
+        throw new NotFoundError('No pudimos encontrar el dato por el id', error)
     }
 }
 
@@ -50,7 +52,7 @@ export const updateData = async (id, newData, pathData) => {
 
 
     }catch (error) {
-        throw new Error('no pudimos actualizar los datos')
+        throw new YeisonError('No pudimos actualizar la data', error)
 
     }
 }
@@ -70,7 +72,7 @@ export const permaDeleteData = async(id, pathData) => {
 
         return dataDelete
     } catch (error) {
-        console.error("No pudimos actualizar la data");
+        throw new YeisonError("No pudimos actualizar la data", error);
     }
 }
 
@@ -90,7 +92,7 @@ export const softDeleteData = async(id, pathData, Model) => {
 
         await createFile(data, pathData)        
     } catch (error) {
-        console.error("No pudimos actualizar la data");
+        throw new YeisonError("No pudimos actualizar la data", error);
     }
 }
 
@@ -105,7 +107,7 @@ export const getAllActiveData = async(pathData) => {
         return dataToRender
 
     }catch (error) {
-        console.error("No pudimos actualizar la data");
+        throw new NotFoundError("No pudimos Encontrar la data", error);
     }
 }
 
@@ -121,6 +123,6 @@ export const getActiveDataById = async(id, pathData) => {
         return resto
 
     }catch (error) {
-        console.error("No pudimos actualizar la data");
+        throw new NotFoundError("No pudimos Encontrar la data", error);
     }
 }

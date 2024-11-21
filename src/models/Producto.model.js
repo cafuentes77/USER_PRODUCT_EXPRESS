@@ -6,6 +6,10 @@ import {
     updateData, 
     permaDeleteData 
 } from '../utils/fileUtils.js';
+import { Validate } from '../utils/Validaciones.js';
+
+import { VALID_ROLES } from "../utils/constants/validRoles.js";
+import { InternalServerError, ValidationError } from "../error/typesError.js";
 
 export class Producto {
     #id
@@ -49,7 +53,7 @@ export class Producto {
           Validate.userName(newName, "Nombre");
           this.#name = newName;
         } catch (error) {
-          console.error(error);
+            throw new ValidationError('Error al modificar el campo nombre',error)
         }
     }
 
@@ -58,7 +62,7 @@ export class Producto {
           Validate.userName(newDescription, "Descripción");
           this.#name = newName;
         } catch (error) {
-          console.error(error);
+            throw new ValidationError('Error al modificar el campo descripción',error);
         }
     }
 
@@ -67,7 +71,7 @@ export class Producto {
           Validate.amount(newPrice, "Precio");
           this.#price = newPrice;
         } catch (error) {
-          console.error(error);
+            throw new ValidationError('Error al modificar el campo precio',error);
         }
     }
 
@@ -76,7 +80,7 @@ export class Producto {
           Validate.amount(newStock, "Stock");
           this.#stock = newStock;
         } catch (error) {
-          console.error(error);
+            throw new ValidationError('Error al modificar el campo stock',error);
         }    
     }
 
@@ -102,7 +106,7 @@ export class Producto {
 
             return productObject;
         } catch (error) {
-            throw new Error(`Error al crear un producto ERROR: ${error}`)
+            throw new InternalServerError(`Fallo al crear un nuevo producto`, error)
             
         }
     }
@@ -112,7 +116,7 @@ export class Producto {
             const productos = await getAllData('productos.json')
             return productos
         } catch (error) {
-            throw new Error("Error al obtener los datos de los productos");
+            throw new InternalServerError(`Fallo al obtener los datos de los productos`, error)
         }
     }
 
@@ -121,7 +125,7 @@ export class Producto {
             const producto = await getDataById(id, 'productos.json');
             return producto
         } catch (error) {
-            throw new Error("Error al obtener los datos del producto");
+            throw new InternalServerError("Error al obtener los datos del producto", error);
         }
     }
 
@@ -130,7 +134,7 @@ export class Producto {
             const actualizarProducto = await updateData(id, data, 'productos.json')
             return actualizarProducto
         } catch (error) {
-            console.error(`Fallo al actualizar el producto, Error: ${error}`);
+            throw new InternalServerError(`Fallo al actualizar el producto`, error);
         } 
     }
 
@@ -139,9 +143,7 @@ export class Producto {
             const productoBorrar = await permaDeleteData(id, 'productos.json');
             return productoBorrar
         } catch (error) {
-            throw new Error(
-            `Fallo al eliminar permanente el producto, Error: ${error}`
-            );
+            throw new InternalServerError(`Fallo al eliminar el prodcuto`, error);
         }
 
     }

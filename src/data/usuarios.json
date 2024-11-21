@@ -14,5 +14,13 @@
         "email": "phulkxxxxxx@gmail.com",
         "rol": "CRUD Ingenier",
         "active": true
+    },
+    {
+        "id": "7b288c36-291e-43d1-b58e-a0bb9f30d75a",
+        "name": "Oscar",
+        "lastname": "Alfred",
+        "email": "Alfredooxxxxxx@gmail.com",
+        "rol": "tech lead",
+        "active": true
     }
 ]

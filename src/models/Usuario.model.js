@@ -173,8 +173,8 @@ export class Usuario {
 
     static async actualizar(id, data) {
         try {
-            const actualizrUsuario = await updateData(id, data, 'usuarios.json')
-            return actualizrUsuario
+            const actualizarUsuario = await updateData(id, data, 'usuarios.json')
+            return actualizarUsuario
         }catch (error){
             throw new InternalServerError(`Falló al actualizar el usuario`, error);
         }

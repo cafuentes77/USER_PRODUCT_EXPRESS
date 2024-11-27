@@ -84,7 +84,7 @@ export const softDeleteData = async(id, pathData, Model) => {
         const indexData = data.findIndex(dataFound => dataFound.id === id)
         if (indexData === -1) throw new Error(`No pudimos encontrar la data`);
 
-        const newInstance = Model.formatearInstancea(data[indexData]);
+        const newInstance = Model.formatearInstancia(data[indexData]);
         
         newInstance.desactive();
         

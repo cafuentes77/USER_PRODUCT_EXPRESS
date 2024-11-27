@@ -50,4 +50,10 @@ export class Validate {
           throw new ValidationError(`${fieldName} debe ser un número mayor que 0`);
         return value;
       }
+
+      static emailContent(subject, message, recipients) {
+        if (!subject || !message || !recipients) throw new ValidationError("Falta alguno de los campos para enviar el correo")
+        return { subject, message, to: recipients };
+      }
+
 }
